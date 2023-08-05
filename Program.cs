@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebExercicios.Configuration;
 using WebExercicios.Infra.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ExercicioContext>(options =>
    options.UseNpgsql(builder.Configuration.GetConnectionString("KeyDatabasePostgres")));
-
+   
+builder.Services.Configurar();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
