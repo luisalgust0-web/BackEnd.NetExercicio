@@ -1,5 +1,5 @@
 namespace WebExercicios.Configuration;
-public static class ServiceConfiguration2
+public static class ServiceConfiguration
     {
         public static IServiceCollection Configurar(this IServiceCollection serviceCollection)
         {

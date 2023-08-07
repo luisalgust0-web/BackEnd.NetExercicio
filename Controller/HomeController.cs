@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebExercicios.Infra.Database;
+using WebExercicios.Infra.Database.Models;
+using WebExercicios.Services;
 
 namespace WebExercicios.Controller;
 
@@ -7,11 +9,13 @@ namespace WebExercicios.Controller;
 [Route("[controller]")]
 public class HomeController : ControllerBase  {
 
-     private readonly ExercicioContext context;
+     private readonly ExercicioContext _context;
+     private readonly CategoriaProdutoService _categoriaProdutoService;
 
-    public HomeController(ExercicioContext context)
+    public HomeController(ExercicioContext context, CategoriaProdutoService categoriaProdutoService)
     {
-        this.context = context;
+        _context = context;
+        _categoriaProdutoService = categoriaProdutoService;
     }
 
     [HttpGet("HelloWorld")]
@@ -20,10 +24,17 @@ public class HomeController : ControllerBase  {
     }
 
     [HttpGet("GetCategoria")]
-    public string GetCategoria(){
-        var teste = this.context.CategoriaProdutos.ToList();
-        return "";
+    public IEnumerable<CategoriaProdutos> GetCategoria(){
+        IEnumerable<CategoriaProdutos> list = _categoriaProdutoService.GetAll();
+        return list;
+    }
+
+    [HttpPost("AddCategoria")]
+    public bool AddCategoria(CategoriaProdutos categoriaProdutos){
+        _categoriaProdutoService.Add(categoriaProdutos);
+        return true;
     }
 }
+
 
  
