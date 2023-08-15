@@ -9,6 +9,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyOrigin",
+        builder =>
+        {
+            builder.SetIsOriginAllowed((url) =>
+            {
+                return true;
+            })
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
+builder.Services.AddAutoMapper(cfg =>
+{
+
+    cfg.AddProfile<WebExercicios.MapperProfile.Profiles>();
+});
+
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ExercicioContext>(options =>
    options.UseNpgsql(builder.Configuration.GetConnectionString("KeyDatabasePostgres")));
@@ -24,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowMyOrigin");
 
 app.MapControllerRoute(
     name: "default",

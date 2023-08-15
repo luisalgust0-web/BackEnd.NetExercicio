@@ -7,4 +7,5 @@ public class ExercicioContext : DbContext
     public ExercicioContext(DbContextOptions<ExercicioContext> options) : base(options){ }
 
     public DbSet<CategoriaProdutos> CategoriaProdutos { get; set; }
+    public DbSet<Produto> Produto { get; set; }
 }

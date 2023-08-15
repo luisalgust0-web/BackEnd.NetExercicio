@@ -1,22 +1,30 @@
+using AutoMapper;
 using WebExercicios.Infra.Database;
 using WebExercicios.Infra.Database.Models;
 using WebExercicios.Services.Interfaces;
+using WebExercicios.ViewModels;
 
 namespace WebExercicios.Services;
 public class CategoriaProdutoService : ICategoriaProdutoService
 {
-    private readonly ExercicioContext context;
+    private readonly ExercicioContext _context;
+    private readonly IMapper _mapper; 
     private string erro ;
 
-    public CategoriaProdutoService(ExercicioContext context)
+    public CategoriaProdutoService(ExercicioContext context, IMapper mapper)
     {
-        this.context = context;
+        _mapper = mapper;
+        _context = context;
     }
 
-    public bool Add(CategoriaProdutos categoria)
+    public bool Add(CategoriaProdutosViewModel categoria)
     {
+
+        CategoriaProdutos categoriaProdutos = _mapper.Map<CategoriaProdutos>(categoria);
+
         try{
-            this.context.CategoriaProdutos.Add(categoria);
+            _context.CategoriaProdutos.Add(categoriaProdutos);
+            _context.SaveChanges();
             return true;
         }catch(Exception erro){
             this.erro = erro.Message;
@@ -24,9 +32,40 @@ public class CategoriaProdutoService : ICategoriaProdutoService
         }
     }
 
-    public IEnumerable<CategoriaProdutos> GetAll()
+    public List<CategoriaProdutosViewModel> GetAll()
     {
-        IEnumerable<CategoriaProdutos> lista = this.context.CategoriaProdutos.AsEnumerable();
-        return lista;
+        try{
+            List<CategoriaProdutos> lista = _context.CategoriaProdutos.AsEnumerable().ToList();
+            List<CategoriaProdutosViewModel> listaViewModel = _mapper.Map<List<CategoriaProdutosViewModel>>(lista);
+            return listaViewModel;
+        }catch(Exception ex){
+            this.erro = ex.Message;
+            return null;
+        }
+        
+    }
+
+    public CategoriaProdutosViewModel GetCategoriaProduto(int id){
+        try{
+            CategoriaProdutos categoriaProdutos = _context.CategoriaProdutos.Where(x => x.Id == id).FirstOrDefault();
+            CategoriaProdutosViewModel categoriaProdutosViewModel = _mapper.Map<CategoriaProdutosViewModel>(categoriaProdutos);
+            return categoriaProdutosViewModel;
+        }catch(Exception ex){
+            this.erro = ex.Message;
+            return null;
+        }
+    }
+
+    public bool Delete(CategoriaProdutosViewModel categoria){
+        CategoriaProdutos categoriaProdutos = _mapper.Map<CategoriaProdutos>(categoria);
+
+        try{
+            _context.CategoriaProdutos.Remove(categoriaProdutos);
+            _context.SaveChanges();
+            return true;
+        }catch(Exception erro){
+            this.erro = erro.Message;
+            return false;
+        }
     }
 }
