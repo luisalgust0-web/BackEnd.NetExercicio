@@ -18,12 +18,6 @@ public class HomeController : ControllerBase  {
     public string HelloWorld(){
         return "Hello World";
     }
-
-    [HttpGet("GetCategoria")]
-    public string GetCategoria(){
-        var teste = this.context.CategoriaProdutos.ToList();
-        return "";
-    }
 }
 
  
