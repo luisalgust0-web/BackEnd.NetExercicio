@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
+using WebExercicios.AutoMapper;
 using WebExercicios.Configuration;
 using WebExercicios.Infra.Database;
 
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<ExercicioContext>(options =>
         ServerVersion.AutoDetect(connectionString)));
    
 builder.Services.Configurar();
+builder.Services.AddAutoMapper(cfg => {
+    cfg.AddProfile<Profiles>();
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
