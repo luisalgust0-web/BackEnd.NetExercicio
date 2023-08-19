@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebExercicios.Infra.Database;
 using WebExercicios.Infra.Models;
 using WebExercicios.Service.Interface;
@@ -6,26 +7,26 @@ using WebExercicios.ViewModels.Input;
 using WebExercicios.ViewModels.Output;
 
 namespace WebExercicios.Service;
-public class CountryService : ICountryService
+public class AddressesService : IAddressesService
 {
-    private readonly ExercicioContext _context;
     private readonly IMapper _mapper;
+    private readonly ExercicioContext _context;
     public string erro;
-
-    public CountryService(ExercicioContext context, IMapper mapper)
+    public AddressesService(IMapper mapper, ExercicioContext context)
     {
         _mapper = mapper;
         _context = context;
     }
 
-    public bool Add(CountryInput countryInput)
+
+    public bool Add(AddressesInput addressesInput)
     {
-        if (countryInput.Country_id == 0)
+        if (addressesInput.Address_id == 0)
         {
             try
             {
-                Countrys countrys = _mapper.Map<Countrys>(countryInput);
-                _context.Country.Add(countrys);
+                Addresses addresses = _mapper.Map<Addresses>(addressesInput);
+                _context.Address.Add(addresses);
                 _context.SaveChanges();
                 return true;
             }
@@ -39,8 +40,8 @@ public class CountryService : ICountryService
         {
             try
             {
-                Countrys countrys = _mapper.Map<Countrys>(countryInput);
-                _context.Country.Update(countrys);
+                Addresses addresses = _mapper.Map<Addresses>(addressesInput);
+                _context.Address.Update(addresses);
                 _context.SaveChanges();
                 return true;
             }
@@ -51,18 +52,13 @@ public class CountryService : ICountryService
             }
         }
     }
-    public List<CountryOutput> GetLista()
-    {
-        List<Countrys> listDb = _context.Country.AsEnumerable().ToList();
-        List<CountryOutput> list = _mapper.Map<List<CountryOutput>>(listDb);
-        return list;
-    }
+
     public bool Delete(int id)
     {
         try
         {
-            Countrys countrys = _context.Country.Where(country => country.Country_id == id).FirstOrDefault();
-            _context.Country.Remove(countrys);
+            Addresses addresses = _context.Address.Where(x => x.Address_id == id).FirstOrDefault();
+            _context.Address.Remove(addresses);
             _context.SaveChanges();
             return true;
         }
@@ -72,5 +68,19 @@ public class CountryService : ICountryService
             return false;
         }
     }
-}
 
+    public List<AddressesOutput> GetLista()
+    {
+        try
+        {
+            List<Addresses> listAddresses = _context.Address.Include(x => x.City).AsEnumerable().ToList();
+            List<AddressesOutput> addressesOutputs = _mapper.Map<List<AddressesOutput>>(listAddresses);
+            return addressesOutputs;
+        }
+        catch (Exception ex)
+        {
+            erro = ex.Message;
+            return null;
+        }
+    }
+}

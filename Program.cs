@@ -13,6 +13,20 @@ var connectionString = builder.Configuration.GetConnectionString("KeyDatabaseMyS
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyOrigin",
+        builder =>
+        {
+            builder.SetIsOriginAllowed((url) =>
+            {
+                return true;
+            })
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ExercicioContext>(options =>
    options.UseMySql(connectionString,
@@ -32,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowMyOrigin");
 
 app.MapControllerRoute(
     name: "default",

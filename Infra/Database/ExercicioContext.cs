@@ -8,6 +8,9 @@ public class ExercicioContext : DbContext
     public ExercicioContext(DbContextOptions<ExercicioContext> options) : base(options){ }
 
     //public DbSet<CategoriaProdutos> CategoriaProdutos { get; set; }
-
+    public DbSet<Films> Film { get; set; }
+    public DbSet<Language> Language {get;set;} 
+    public DbSet<Citys> City {get; set;}
     public DbSet<Countrys> Country {get; set;}
+    public DbSet<Addresses> Address { get; set; }
 }

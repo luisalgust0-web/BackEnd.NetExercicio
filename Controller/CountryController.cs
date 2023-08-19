@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Namespace;
 using WebExercicios.Infra.Database;
-using WebExercicios.Infra.Models;
+using WebExercicios.Service.Interface;
 using WebExercicios.ViewModels.Input;
+using WebExercicios.ViewModels.Output;
 
 namespace WebExercicios.Controller;
 
@@ -21,7 +21,7 @@ public class CountryController : ControllerBase  {
 
     [HttpGet("GetCountrys")]
     public IActionResult GetCountrys(){
-        List<Countrys> lista = _service.GetLista();       
+        List<CountryOutput> lista = _service.GetLista();       
         return new JsonResult(lista);
     }
 
