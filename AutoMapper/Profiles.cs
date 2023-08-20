@@ -17,6 +17,7 @@ public class Profiles : Profile
         CreateMap<AddressesInput, Addresses>();
         CreateMap<Language, LanguageOutput>();
         CreateMap<LanguageInput, Language>();
-        CreateMap<Films, FilmOutput>().ForMember(x => x.LanguageName, src => src.MapFrom(src => src.Language.Language_id)).ForMember(x => x.OriginaLanguageName, src => src.MapFrom(src => src.Language.Language_id));
+        CreateMap<Films, FilmOutput>().ForMember(x => x.LanguageName, src => src.MapFrom(src => src.Language.Name)).ForMember(x => x.OriginaLanguageName, src => src.MapFrom(src => src.LanguageOriginal.Name));
+        CreateMap<FilmInput, Films>(); 
    }
 }

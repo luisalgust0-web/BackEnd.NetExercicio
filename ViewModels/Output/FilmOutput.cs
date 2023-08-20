@@ -4,7 +4,7 @@ public class FilmOutput
     public int Film_id {get;set;}
     public string Title {get;set;}
     public string Description {get;set;}
-    public DateTime Release_year {get;set;}
+    public int Release_year {get;set;}
     public int Language_id {get;set;}
     public string LanguageName {get;set;}
     public int Original_language_id {get;set;}

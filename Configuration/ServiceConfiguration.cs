@@ -12,6 +12,8 @@ public static class ServiceConfiguration2
             serviceCollection.AddScoped<ICityService, CityService>();
             serviceCollection.AddScoped<ICountryService, CountryService>();
             serviceCollection.AddScoped<IAddressesService, AddressesService>();
+            serviceCollection.AddScoped<ILanguageService, LanguageService>();
+            serviceCollection.AddScoped<IFilmService, FilmService>();
             return serviceCollection;
         }
 
