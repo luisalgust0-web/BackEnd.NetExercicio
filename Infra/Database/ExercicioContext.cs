@@ -13,4 +13,8 @@ public class ExercicioContext : DbContext
     public DbSet<Citys> City {get; set;}
     public DbSet<Countrys> Country {get; set;}
     public DbSet<Addresses> Address { get; set; }
+    public DbSet<Category> Category { get; set; }
+    public DbSet<FilmCategory> FilmCategories { get; set; }
+    public DbSet<Actor> Actor { get; set; }
+    public DbSet<FilmActor> FilmActors{ get; set; }
 }

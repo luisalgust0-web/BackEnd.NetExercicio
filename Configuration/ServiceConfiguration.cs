@@ -14,6 +14,10 @@ public static class ServiceConfiguration2
             serviceCollection.AddScoped<IAddressesService, AddressesService>();
             serviceCollection.AddScoped<ILanguageService, LanguageService>();
             serviceCollection.AddScoped<IFilmService, FilmService>();
+            serviceCollection.AddScoped<ICategoryService, CategoryService>();
+            serviceCollection.AddScoped<IFilmCategoryService, FilmCategoryService>();
+            serviceCollection.AddScoped<IActorService, ActorService>();
+            serviceCollection.AddScoped<IFilmActorService, FilmActorService>();
             return serviceCollection;
         }
 
