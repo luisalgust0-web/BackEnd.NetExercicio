@@ -11,6 +11,5 @@ public class Citys
     public int Country_id {get;set;}
     public string City {get;set;}
     public DateTime Last_update {get;set;}
-
     public Countrys Country { get; set; }
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebExercicios.Infra.Database.Models;
 using WebExercicios.Services;
 using WebExercicios.Services.Base;
+using WebExercicios.Services.Interfaces;
 using WebExercicios.ViewModels.Output;
 
 namespace WebExercicios.Controller;
@@ -9,18 +10,24 @@ namespace WebExercicios.Controller;
 [Route("[controller]")]
 public class CityController
 {
-    private readonly Services.IServiceBase<Citys> _service;
+    private readonly IServiceBase<Citys> _service;
 
     public CityController(IServiceBase<Citys> service)
     {
         _service = service;
     }
 
-    [HttpGet("GetLanguages")]
+    
+    [HttpGet("GetLista")]
     public IActionResult GetLanguages()
     {
-        List<CityOutput> lista = _service.GetQuery().Include(x => x.Country).MapList<CityOutput>();
-
-        return new JsonResult(lista);
+        return new JsonResult(_service.GetQuery().MapList<CityOutput>());
     }
+
+    [HttpGet("GetItem/{id}")]
+    public IActionResult GetLanaguage(int id)
+    {
+        return new JsonResult(_service.GetItem<CityOutput>(id));
+    }
+
 }

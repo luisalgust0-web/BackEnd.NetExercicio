@@ -1,16 +1,14 @@
 using System.Linq.Expressions;
-using System.Transactions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebExercicios.Infra.Database;
-using WebExercicios.Services;
+using WebExercicios.Services.Interfaces;
 
 namespace WebExercicios.Services.Base;
 public class ServiceBase<T> : IServiceBase<T> where T : class
 {
     private readonly IMapper _mapper;
     private readonly ExercicioContext _context;
-    private IQueryable<T> query;
 
     public ServiceBase(IMapper mapper, ExercicioContext context)
     {
@@ -33,14 +31,7 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         Output output = _mapper.Map<Output>(entity);
         return output;
     }
-
-    public virtual List<Output> GetLista<Output>()
-    {
-        List<T> ListDbModel = _context.Set<T>().AsEnumerable().ToList();
-        List<Output> ListOutputModel = _mapper.Map<List<Output>>(ListDbModel);
-        return ListOutputModel;
-    }
-
+    
     public bool Remove(params object[] chaves)
     {
         T entity = _context.Find<T>(chaves);
@@ -49,20 +40,13 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         return true;
     }
 
-    public IServiceBase<T> GetQuery(){
-        this.query = _context.Set<T>().Where(x => true);
-        return this; 
-
-    }
-
-    public IServiceBase<T> Include(Expression<Func<T, object>> func)
+    IConsultaBase<T> IServiceBase<T>.GetQuery()
     {
-        this.query = this.query.Include(func);
-        return this; 
+        IQueryable<T> query = _context.Set<T>().Where(x => true);
+        IConsultaBase<T> consultaQuery = new ConsultaBase<T>(query, _mapper);
+        return consultaQuery;
     }
-    
-    public List<Output> MapList<Output>(){
-        List<T> lista = this.query.ToList();
-        return  _mapper.Map<List<Output>>(lista);
-    }
+
 }
+
+

@@ -9,5 +9,9 @@ public class Profiles : Profile
         CreateMap<Language, LanguageOutput>();
 
         CreateMap<Citys, CityOutput>().ForMember( x => x.Country_name, cfg => cfg.MapFrom( src => src.Country.Country));
+
+        CreateMap<Countrys, CountryOutput>();
+
+        CreateMap<Addresses, AddressOutput>().ForMember( x => x.City_Name, cfg => cfg.MapFrom( src => src.City.City));
     }
 }
