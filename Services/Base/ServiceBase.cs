@@ -19,8 +19,8 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
     public virtual bool Add<Input>(Input input)
     {
 
-        var DbModel = _mapper.Map<T>(input);
-        _context.Set<T>().Add(DbModel);
+        T entity = _mapper.Map<T>(input);
+        _context.Set<T>().Add(entity);
         _context.SaveChanges();
         return true;
     }
@@ -40,7 +40,15 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         return true;
     }
 
-    IConsultaBase<T> IServiceBase<T>.GetQuery()
+    public virtual bool Update<Input>(Input input)
+    {
+        T entity = _mapper.Map<T>(input);
+        _context.Set<T>().Update(entity);
+        _context.SaveChanges();
+        return true;
+    }
+
+    public virtual IConsultaBase<T> GetQuery()
     {
         IQueryable<T> query = _context.Set<T>().Where(x => true);
         IConsultaBase<T> consultaQuery = new ConsultaBase<T>(query, _mapper);

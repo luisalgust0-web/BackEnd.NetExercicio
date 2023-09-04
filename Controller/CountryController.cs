@@ -4,7 +4,7 @@ using WebExercicios.Services.Interfaces;
 using WebExercicios.ViewModels.Output;
 
 namespace WebExercicios.Controller;
-public class CountryController
+public class CountryController : ControllerBase
 {
     private readonly IServiceBase<Countrys> _service;
 

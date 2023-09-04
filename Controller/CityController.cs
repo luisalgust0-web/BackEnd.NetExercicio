@@ -8,7 +8,7 @@ using WebExercicios.ViewModels.Output;
 namespace WebExercicios.Controller;
 [ApiController]
 [Route("[controller]")]
-public class CityController
+public class CityController : ControllerBase
 {
     private readonly IServiceBase<Citys> _service;
 
@@ -19,13 +19,13 @@ public class CityController
 
     
     [HttpGet("GetLista")]
-    public IActionResult GetLanguages()
+    public IActionResult GetCitys()
     {
-        return new JsonResult(_service.GetQuery().MapList<CityOutput>());
+        return new JsonResult(_service.GetQuery().Include(x => x.Country).MapList<CityOutput>());
     }
 
     [HttpGet("GetItem/{id}")]
-    public IActionResult GetLanaguage(int id)
+    public IActionResult GetCity(int id)
     {
         return new JsonResult(_service.GetItem<CityOutput>(id));
     }

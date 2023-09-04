@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using WebExercicios.Infra.Database;
 using WebExercicios.Infra.Database.Models;
-using WebExercicios.Services;
-using WebExercicios.Services.Base;
 using WebExercicios.Services.Interfaces;
 using WebExercicios.ViewModels.Output;
 

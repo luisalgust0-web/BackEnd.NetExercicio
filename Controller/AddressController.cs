@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using WebExercicios.Infra.Database.Models;
 using WebExercicios.Services.Interfaces;
+using WebExercicios.ViewModels.Input;
 using WebExercicios.ViewModels.Output;
 
 namespace WebExercicios.Controller;
 [ApiController]
 [Route("[controller]")]
-public class AddressController
+public class AddressController : ControllerBase
 {
     private readonly IServiceBase<Addresses> _service;
 
@@ -30,7 +31,12 @@ public class AddressController
         return _service.Add(input); 
     }
 
-    [HttpDelete("DeleteItem")]
+    [HttpPost("UpdateItem")]
+    public bool UpdateAddress(AddressInput input){
+        return _service.Update(input); 
+    }
+
+    [HttpDelete("DeleteItem/{id}")]
     public bool DeleteAddress(int id){
         return _service.Remove(id);
     }
