@@ -28,6 +28,11 @@ public class ConsultaBase<T> : IConsultaBase<T> where T : class
         return _mapper.Map<List<Output>>(lista);
     }
 
+    public Output MapItem<Output>(){
+        T item = _query.FirstOrDefault();
+        return _mapper.Map<Output>(item);
+    }
+
     public IConsultaBase<T> Where(Expression<Func<T, bool>> expression)
     {
         this._query = _query.Where(expression);

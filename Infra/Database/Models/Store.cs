@@ -10,11 +10,11 @@ public class Store
     public int Store_id { get; set; }
     [ForeignKey("Address")]
     public int Address_id {get;set;}
-    [ForeignKey("Manager_staff")]
+    [ForeignKey("Staff")]
     public int Manager_staff_id {get;set;}
     public DateTime Last_update {get;set;}
 
     public Addresses Address { get; set; }
-    public Staff Manager_staff { get; set; }
+    public Staff Staff { get; set; }
 
 }

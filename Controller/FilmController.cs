@@ -23,7 +23,7 @@ public class FilmController : ControllerBase
 
     [HttpGet("GetListaByTitle")]
     public IActionResult GetFilmsByTitle(string title){
-        return new JsonResult(_service.GetQuery().Where(x => x.Title.ToLower() == title.ToLower()).Include(x => x.Language).Include(x => x.Original_language).MapList<FilmOutput>());
+        return new JsonResult(_service.GetQuery().Where(x => x.Title.Contains(title)).Include(x => x.Language).Include(x => x.Original_language).MapList<FilmOutput>());
     }
 
     [HttpGet("GetItem/{id}")]

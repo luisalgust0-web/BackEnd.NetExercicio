@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebExercicios.Configuration;
 using WebExercicios.Infra.Database;
 using WebExercicios.MapperProfiles;
-using WebExercicios.Middlewares;
+using WebExercicios.Infra.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +48,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware(typeof(ErrorMiddleware));
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowMyOrigin");
 
 app.MapControllerRoute(
     name: "default",

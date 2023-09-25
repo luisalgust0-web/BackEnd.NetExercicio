@@ -4,6 +4,8 @@ using WebExercicios.Services.Interfaces;
 using WebExercicios.ViewModels.Output;
 
 namespace WebExercicios.Controller;
+[ApiController]
+[Route("[controller]")]
 public class CountryController : ControllerBase
 {
     private readonly IServiceBase<Countrys> _service;

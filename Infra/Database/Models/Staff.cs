@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WebExercicios.Infra.Database.Models;
 
 namespace WebExercicios.Infra.Database.Models;
+[Table("staff")]
 public class Staff
 {
     [Key]
@@ -17,7 +18,7 @@ public class Staff
     public int Store_id { get; set; }
     public int Active { get; set; }
     public string Username { get; set; }
-    public string Password { get; set; }
+    public string? Password { get; set; }
     public DateTime Last_update { get; set; }
 
     public Addresses Address { get; set; }

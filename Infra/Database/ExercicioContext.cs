@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Namespace;
+using WebExercicios.Infra.Configuration;
 using WebExercicios.Infra.Database.Models;
 
 namespace WebExercicios.Infra.Database;
@@ -19,5 +21,10 @@ public class ExercicioContext : DbContext
     public DbSet<Staff> Staff { get; set; }
     public DbSet<Customer> Customer { get; set; }
     public DbSet<Rental> Rental { get; set; }
+    public DbSet<Inventory> Inventory { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder){
+        modelBuilder.ApplyConfiguration(new RentalConfiguration());
+    }
 }
     

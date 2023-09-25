@@ -1,6 +1,10 @@
+using System.Diagnostics;
 using System.Text.Json;
+using Google.Protobuf.WellKnownTypes;
+using WebExercicios.Infra.Exceptions;
+using WebExercicios.Services.Base;
 
-namespace WebExercicios.Middlewares;
+namespace WebExercicios.Infra.Middlewares;
 public class ErrorMiddleware
 {
     private readonly RequestDelegate _next;
@@ -16,22 +20,33 @@ public class ErrorMiddleware
         {
             await _next(context);
         }
-        catch (Exception ex)
+        catch (LocadoraFilmeException ex)
         {
-            await Tratarrro(ex,context);
+            string type = "LocadoraException";
+            await MessagesService(ex,context,type); 
+        }
+        catch (Exception ex){
+            string type = "Exception";
+            await MessagesService(ex,context,type);
         }
     }
 
-    public static Task Tratarrro(Exception ex, HttpContext context)
+     public Task MessagesService(Exception ex, HttpContext context, string typeMessage)
     {
-        string stackTrace;
-        string message;
-        int code;
+            string _stackTrace;
+            string _message;
+            string _type;
+            int _statusCode;
 
-        message = ex.Message;
-        stackTrace = ex.StackTrace;
-        code = context.Response.StatusCode;
-        var result = JsonSerializer.Serialize(new { message, code, stackTrace });
-        return context.Response.WriteAsync(result);
+            _message = ex.Message;
+            _stackTrace = ex.StackTrace;
+            _statusCode = context.Response.StatusCode;
+            _type = typeMessage;
+            var result = JsonSerializer.Serialize(new { _message, _statusCode, _stackTrace, _type });
+
+            return context.Response.WriteAsync(result);
     }
+
+
 }
+
