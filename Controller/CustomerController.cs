@@ -23,13 +23,13 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet("GetItemById/{id}")]
-    public IActionResult GetListaById(int id)
+    public IActionResult GetCustomerById(int id)
     {
         return new JsonResult(_service.GetQuery().Where(x => x.Customer_id == id).Include(x => x.Address.City).MapItem<CustomerOutput>());
     }
 
-    [HttpGet("GetCustomerByName")]
-    public IActionResult GetCustomerByName(string name)
+    [HttpGet("GetCustomersByName")]
+    public IActionResult GetCustomersByName(string name)
     {
         return new JsonResult(_service.GetQuery().Where(x => x.First_name.Contains(name) || x.Last_name.Contains(name)).Include(x => x.Address.City).MapList<CustomerOutput>());
     }
@@ -37,9 +37,8 @@ public class CustomerController : ControllerBase
     [HttpPost("AddItem")]
     public bool AddCustomer(CustomerInput input)
     {
-        // this.Response.StatusCode = 201;
-        // return Ok();
-        return _service.Add(input);
+        _service.Add(input);
+        return true;
     }
 
     [HttpPost("UpdateItem")]

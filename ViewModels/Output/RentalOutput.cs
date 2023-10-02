@@ -10,7 +10,8 @@ public class RentalOutput
     public int Customer_id { get; set; }
     public string Customer_First_Name { get; set; }
     public string Customer_Last_Name { get; set; }
-    public string Situacao {get; set;}
+    public string DescricaoSituacao {get; set;}
+    public TipoSituacao Situacao {get; set;}
     public DateTime Return_date { get; set; }
     public int Staff_id { get; set; }
     public DateTime Last_update { get; set; }

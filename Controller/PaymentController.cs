@@ -16,14 +16,15 @@ public class PaymentController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("GetAmount")]
-    public decimal GetPayment(int rental_id){
+    [HttpPost("GetAmount")]
+    public decimal GetAmount([FromBody]int rental_id){
         return _service.GetAmount(rental_id);
     }
 
     [HttpPost("AddItem")]
     public bool AddPayment(PaymentInput input){
-        return _service.Add(input);
+        _service.Add(input);
+        return true;
     }
 
     [HttpGet("GetItemByName")]

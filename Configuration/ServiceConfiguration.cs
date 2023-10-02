@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using WebExercicios.Controller;
 using WebExercicios.Infra.Database.Models;
+using WebExercicios.Report;
 using WebExercicios.Services;
 using WebExercicios.Services.Base;
 using WebExercicios.Services.Interfaces;
@@ -15,6 +16,9 @@ public static class ServiceConfiguration
             serviceCollection.AddScoped<CustomerService, CustomerService>();
             serviceCollection.AddScoped<RentalService, RentalService>();
             serviceCollection.AddScoped<InventoryService , InventoryService>();
+            serviceCollection.AddScoped<PaymentService, PaymentService>();
+
+            serviceCollection.AddScoped<ReportEngine, ReportEngine>();
                 
             return serviceCollection;
         }

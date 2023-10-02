@@ -31,9 +31,9 @@ public class Rental
 
 
  public enum TipoSituacao {
-  devolvido = 1 ,
-  alugado ,
-  pago 
+  alugado = 1 ,
+  devolvido = 2,
+  pago = 3 
   }
 
 public static class TipoSituacaoMetodos{

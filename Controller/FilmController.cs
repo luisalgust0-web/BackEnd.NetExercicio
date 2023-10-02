@@ -27,7 +27,7 @@ public class FilmController : ControllerBase
     }
 
     [HttpGet("GetItem/{id}")]
-    public IActionResult GetFilm(int id){
+    public IActionResult GetFilmsById(int id){
         return new JsonResult(_service.GetItem<FilmOutput>(id));
     }
 

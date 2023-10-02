@@ -28,7 +28,8 @@ public class AddressController : ControllerBase
 
     [HttpPost("AddItem")]
     public bool AddAddress(AddressInput input){
-        return _service.Add(input); 
+        _service.Add(input); 
+        return true;
     }
 
     [HttpPost("UpdateItem")]

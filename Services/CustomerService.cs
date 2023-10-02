@@ -14,7 +14,7 @@ public class CustomerService : ServiceBase<Customer>
         _context = context;
     }
 
-    public override bool Add<Input>(Input input)
+    public override Customer Add<Input>(Input input)
     {
         CustomerInput customer = input as CustomerInput;
         if (!_context.Customer.Any(x => x.First_name == customer.First_name && x.Last_name == customer.Last_name))

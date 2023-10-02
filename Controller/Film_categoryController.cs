@@ -16,10 +16,10 @@ public class Film_categoryController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("GetLista")]
-    public IActionResult GetFilm_categorys(){
-        return new JsonResult(_service.GetQuery().Include( x => x.Category).Include( x => x.Film ).MapList<Film_categoryOutput>());
-    }
+    // [HttpGet("GetLista")]
+    // public IActionResult GetFilm_categorys(){
+    //     return new JsonResult(_service.GetQuery().Include( x => x.Category).Include( x => x.Film ).MapList<Film_categoryOutput>());
+    // }
 
     [HttpGet("GetListaByFilmTitle")]
     public IActionResult GetFilm_categorysByFilmTitle(string title){
@@ -27,7 +27,7 @@ public class Film_categoryController : ControllerBase
     }
 
     [HttpGet("GetListaFilmCategorys")]
-    public IActionResult GetListaByCategoryId([FromQuery]string title,[FromQuery]int? categoryId,[FromQuery]int? languageId){
+    public IActionResult GetFilm_categorys([FromQuery]string title,[FromQuery]int? categoryId,[FromQuery]int? languageId){
         var query = _service.GetQuery().Where(x => x.Film.Title.Contains(title));
 
         if(categoryId.HasValue){

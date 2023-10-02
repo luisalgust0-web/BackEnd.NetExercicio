@@ -22,6 +22,7 @@ public class ExercicioContext : DbContext
     public DbSet<Customer> Customer { get; set; }
     public DbSet<Rental> Rental { get; set; }
     public DbSet<Inventory> Inventory { get; set; }
+    public DbSet<Payment> Payment { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder){
         modelBuilder.ApplyConfiguration(new RentalConfiguration());

@@ -50,13 +50,14 @@ public class RentalController : ControllerBase
    }
 
     [HttpGet("GetItem/{id}")]
-    public IActionResult GetRentalId(int id){
-        return new JsonResult(_service.GetQuery().Where(x => x.Rental_id == id).Include(X => X.Customer).Include(X => X.Inventory.Film).MapList<RentalOutput>());
+    public IActionResult GetRentalById(int id){
+        return new JsonResult(_service.GetQuery().Where(x => x.Rental_id == id).Include(X => X.Customer).Include(X => X.Inventory.Film).MapItem<RentalOutput>());
     }
     
     [HttpPost("AddItem")]
-    public bool AddRental(RentalInput input){
-        return _service.Add(input);
+    public IActionResult AddRental(RentalInput input){
+        RentalOutput rentalOutput = _service.AddRental(input);
+        return new JsonResult(rentalOutput);
     }
 
     [HttpPost("UpdateItem")]

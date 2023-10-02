@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WebExercicios.Infra.Database.Models;
+using WebExercicios.Report;
 using WebExercicios.Services;
 using WebExercicios.Services.Interfaces;
 using WebExercicios.ViewModels.Input;
@@ -11,10 +12,13 @@ namespace WebExercicios.Controller;
 public class ActorController : ControllerBase
 {
     private readonly IServiceBase<Actor> _service;
+    private readonly ReportEngine _serviceReportEngine;
 
-    public ActorController(IServiceBase<Actor> service)
+
+    public ActorController(IServiceBase<Actor> service, ReportEngine serviceReportEngine)
     {
         _service = service;
+        _serviceReportEngine = serviceReportEngine;
     }
 
     [HttpGet("GetLista")]

@@ -16,13 +16,13 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         _context = context;
     }
 
-    public virtual bool Add<Input>(Input input)
+    public virtual T Add<Input>(Input input)
     {
 
         T entity = _mapper.Map<T>(input);
         _context.Set<T>().Add(entity);
         _context.SaveChanges();
-        return true;
+        return entity;
     }
 
     public Output GetItem<Output>(params object[] chaves)
